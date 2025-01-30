@@ -16,7 +16,7 @@ export async function POST(request: Request) {
       path: "/",
     });
 
-    return NextResponse.json({ success: true });
+    return NextResponse.redirect(new URL("/", request.url));
   } else {
     return NextResponse.json(
       { message: "Invalid credentials" },

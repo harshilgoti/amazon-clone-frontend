@@ -6,13 +6,13 @@ export function middleware(request: NextRequest) {
   const user = request.cookies.get("user");
   console.log("User cookie:", user);
 
-  if (!user && !request.nextUrl.pathname.startsWith("/login")) {
-    return NextResponse.redirect(new URL("/login", request.url));
-  }
+  // if (!user && !request.nextUrl.pathname.startsWith("/login")) {
+  //   return NextResponse.redirect(new URL("/login", request.url));
+  // }
 
-  if (user && request.nextUrl.pathname.startsWith("/login")) {
-    return NextResponse.redirect(new URL("/", request.url));
-  }
+  // if (user && request.nextUrl.pathname.startsWith("/login")) {
+  //   return NextResponse.redirect(new URL("/", request.url));
+  // }
 
   return NextResponse.next();
 }

@@ -3,12 +3,12 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
-import Link from "next/link";
 import type { AppDispatch, RootState } from "@/store/store";
-import { login } from "@/store/slices/authSlice";
+import { register } from "@/store/slices/authSlice";
 import MainLayout from "@/components/MainLayout";
 
-export default function Login() {
+export default function MerchantRegister() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
@@ -17,17 +17,32 @@ export default function Login() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const result = await dispatch(login({ email, password }));
-    if (login.fulfilled.match(result)) {
-      router.push("/");
+    const result = await dispatch(
+      register({ name, email, password, role: "merchant" })
+    );
+    if (register.fulfilled.match(result)) {
+      router.push("/merchant/dashboard");
     }
   };
 
   return (
     <MainLayout>
       <div className="max-w-md mx-auto mt-10">
-        <h2 className="text-2xl font-bold mb-5">Login</h2>
+        <h2 className="text-2xl font-bold mb-5">Merchant Registration</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label htmlFor="name" className="block mb-1">
+              Name
+            </label>
+            <input
+              type="text"
+              id="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+              className="w-full px-3 py-2 border rounded"
+            />
+          </div>
           <div>
             <label htmlFor="email" className="block mb-1">
               Email
@@ -60,15 +75,9 @@ export default function Login() {
             className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
             disabled={isLoading}
           >
-            {isLoading ? "Logging in..." : "Login"}
+            {isLoading ? "Registering..." : "Register as Merchant"}
           </button>
         </form>
-        <p className="mt-4 text-center">
-          Don't have an account?{" "}
-          <Link href="/register" className="text-blue-500 hover:underline">
-            Register here
-          </Link>
-        </p>
       </div>
     </MainLayout>
   );

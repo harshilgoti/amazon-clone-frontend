@@ -25,7 +25,7 @@ export default function Login() {
 
   return (
     <MainLayout>
-      <div className="max-w-md mx-auto mt-10">
+      <div className="max-w-md mx-auto mt-10 p-4 rounded border-2">
         <h2 className="text-2xl font-bold mb-5">Login</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
